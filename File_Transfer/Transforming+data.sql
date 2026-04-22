@@ -1,3 +1,6 @@
+-- Data Transformation Using SQL FUNCTION
+--  Database : OUR_FIRST_DEMO_DB.PUBLIC.
+
 // Transforming using the SELECT statement
 -- use this Database : OUR_FIRST_DEMO_DB.PUBLIC.
 
