@@ -19,7 +19,7 @@ show tables;
 
 -- Count the records.
 Select count(*) from CUSTOMER
-
+Select customer_id,email, age from CUSTOMER
  
  //Loading the data from S3 bucket
   
