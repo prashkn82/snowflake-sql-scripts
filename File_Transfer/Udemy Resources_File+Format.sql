@@ -1,3 +1,4 @@
+-- Implementation of FILE FORMAT - using Copy Command
 -- Replace OUR_FIRST_DB.PUBLIC.ORDERS_EX -->   OUR_FIRST_DEMO_DB.PUBLIC.ORDERS_EX_PROFITABLE_FLAG
 -- // Follow this - Table - ORDERS_EX_PROFITABLE_FLAG
 
