@@ -1,3 +1,5 @@
+-- Assignments of Udemy Lectures are done here. 
+
 CREATE DATABASE EXERCISE_DB
 
 SHOW DATABASES;
