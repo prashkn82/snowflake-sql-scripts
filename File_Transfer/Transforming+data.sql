@@ -1,5 +1,5 @@
--- Implement SQL FUNCTIONS ON COPY COMMAND 
-Data Transformation Using SQL FUNCTION
+--  Data Transformation- Implement SQL FUNCTIONS ON COPY COMMAND 
+
 --  Database : OUR_FIRST_DEMO_DB.PUBLIC.
 
 // Transforming using the SELECT statement
