@@ -1,3 +1,4 @@
+-- Rework on DEMO DB to create a LOAN_PAYMENT table and LOAD RECORDS
 //Rename data base & creating the table + meta data
 
 ALTER DATABASE DEMO_DB RENAME TO OUR_FIRST_DEMO_DB
