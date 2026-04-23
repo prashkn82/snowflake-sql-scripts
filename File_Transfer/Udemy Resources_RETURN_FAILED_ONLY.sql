@@ -1,3 +1,7 @@
+-- Using RETURN_FAILED_ONLY
+-- If your goal is to see only the records that failed to load during a bulk data load, use the VALIDATE function or specific ON_ERROR parameters.
+-- Snowflake COPY INTO documentation - this mode instructs Snowflake to return all errors across all specified files and stop without loading any data
+
 Use COPY_DB;
 
 -- View the previous records and Stage Info
