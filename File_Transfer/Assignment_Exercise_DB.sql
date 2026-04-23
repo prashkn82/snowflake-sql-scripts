@@ -343,6 +343,7 @@ How many rows have been loaded?
         SKIP_HEADER=1;
 
          -- View the Staging SCHEMA
+         LIST @EXERCISE_DB.external_stages.aws_stage; 
             LIST @aws_stage;
 
 
@@ -383,9 +384,67 @@ How many rows have been loaded?
 
        -- 6  Questions for this assignment - How many rows have been loaded? - 62 Rows loaded.
 
-       Select count(*) from EXERCISE_DB.PUBLIC.EMPLOYEES#
+       Select count(*) from EMPLOYEES
 
-       SELECT CUSTOMER_ID,FIRST_NAME,LAST_NAME,DEPARTMENT FROM EXERCISE_DB.PUBLIC.EMPLOYEES
+       SELECT CUSTOMER_ID,FIRST_NAME,LAST_NAME,DEPARTMENT FROM EMPLOYEES
        WHERE CUSTOMER_ID = 28
 
+       /*
+        Assignment 7: 
+        1. Create a stage object that is pointing to 's3://snowflake-assignments-mc/unstructureddata/'
+        2. Create a file format object that is using TYPE = JSON
+        3. Create a table called JSON_RAW with one column
+                Column name: Raw
+                Column type: Variant                
+        4. Copy the raw data in the JSON_RAW table using the file format object and stage object
+
+        Questions for this assignment
+        What is the last name of the person in the first row (id=1)?
+
+       */
+
+        
+       -- Assignment 7: Solutions
+       --  1. Create a stage object that is pointing to 's3://snowflake-assignments-mc/unstructureddata/'
+            USE Exercise_DB;
+
+             LIST @EXERCISE_DB.EXTERNAL_STAGES.JSONSTAGE;
+
+             CREATE OR REPLACE STAGE EXERCISE_DB.EXTERNAL_STAGES.JSONSTAGE
+                 url='s3://bucketsnowflake-jsondemo';
+
+          -- CREATE SCHMEMA IF EXISTS
+          CREATE SCHEMA IF NOT EXISTS EXERCISE_DB.FILE_FORMATS;
+               
+        -- 2. Create a file format object that is using TYPE = JSON
+           CREATE OR REPLACE FILE FORMAT EXERCISE_DB.FILE_FORMATS.JSONFORMAT
+            TYPE = JSON;
+        
+        -- 3. Create a table called JSON_RAW with one column
+                Column name: Raw
+                Column type: Variant    
+                CREATE OR REPLACE table EXERCISE_DB.PUBLIC.JSON_RAW 
+                (
+                  raw_file variant
+                );
+
+            -- View the records befor loading JSON DATA
+            SELECT COUNT(*) FROM EXERCISE_DB.PUBLIC.JSON_RAW 
+                
+        --  4. Copy the raw data in the JSON_RAW table using the file format object and stage object
+        COPY INTO EXERCISE_DB.PUBLIC.JSON_RAW 
+        FROM @EXERCISE_DB.EXTERNAL_STAGES.JSONSTAGE
+        file_format= EXERCISE_DB.FILE_FORMATS.JSONFORMAT
+        files = ('HR_data.json');
+
+        -- View the records After loading JSON DATA
+            SELECT COUNT(*) FROM EXERCISE_DB.PUBLIC.JSON_RAW 
+            -- Rows : 200 rows loaded.
+        
+
+        -- Questions for this assignment
+        -- What is the last name of the person in the first row (id=1)?
+        SELECT raw_file FROM EXERCISE_DB.PUBLIC.JSON_RAW 
+         -- For id=1, last name - Gioani
+        
        
