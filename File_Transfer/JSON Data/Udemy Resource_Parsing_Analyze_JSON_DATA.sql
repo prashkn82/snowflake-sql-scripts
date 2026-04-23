@@ -13,7 +13,7 @@ SELECT * FROM MANAGE_DB.PUBLIC.JSON_RAW;
 SELECT RAW_FILE:city FROM MANAGE_DB.PUBLIC.JSON_RAW;
 
 SELECT $1:first_name FROM MANAGE_DB.PUBLIC.JSON_RAW;
-SELECT $2:city FROM MANAGE_DB.PUBLIC.JSON_RAW;
+SELECT $1:gender FROM MANAGE_DB.PUBLIC.JSON_RAW;
 
 
    // Selecting attribute/column - formattted
@@ -28,6 +28,13 @@ SELECT
     RAW_FILE:last_name::STRING as last_name,
     RAW_FILE:gender::STRING as gender
 
+FROM MANAGE_DB.PUBLIC.JSON_RAW;
+
+SELECT
+  RAW_FILE:id::int as id, 
+  raw_file:city::STRING as City,
+  raw_file:gender::STRING as Gender,
+  raw_file:first_name::STRING as First_Name
 FROM MANAGE_DB.PUBLIC.JSON_RAW;
 
    // Handling nested data
