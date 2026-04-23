@@ -1,3 +1,5 @@
+-- Udemy Lab - How to use COPY Command by creating Database & Stage
+
 -- CREATE DATABASE 
 -- CREATE SCHEMA_STAGE, ALTER SCHEMA_STAGE
 -- CREATE PUBLIC SCHEMA_STAGE
