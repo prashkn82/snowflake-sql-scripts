@@ -1,5 +1,4 @@
--- Handling nested data - JSON 
--- How to VIEW & ANALYSE the JSON DATA in SQL. 
+-- Handling nested data - JSON  
 -- Replace  OUR_FIRST_DB.PUBLIC.JSON_RAW -to- MANAGE_DB.PUBLIC.JSON_RAW;
 
 USE MANAGE_DB;
