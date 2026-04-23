@@ -1,4 +1,5 @@
----- TRUNCATECOLUMNS ----
+-- Using TRUNCATE COLUMNS
+---- This will eliminate the strings which exceed the actual length prescribed for the table column
 
 USE COPY_DB
 -- here 'Category' length set to 10
