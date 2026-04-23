@@ -1,4 +1,4 @@
---  Data Transformation- Implement SQL FUNCTIONS ON COPY COMMAND 
+-- Implement SQL FUNCTIONS ON COPY COMMAND :  Data Transformation
 
 --  Database : OUR_FIRST_DEMO_DB.PUBLIC.
 
