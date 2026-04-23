@@ -1,4 +1,5 @@
---  Example 2 - Table (Reference FROM Transformation+data.sql file)
+-- Working more on Transformation + Data
+-- Example 2 - Table (Reference FROM Transformation+data.sql file)
 -- Replace OUR_FIRST_DB.PUBLIC.ORDERS_EX --> OUR_FIRST_DEMO_DB.PUBLIC.ORDERS_EX_PROFITABLE_FLAG
 
 CREATE OR REPLACE TABLE OUR_FIRST_DEMO_DB.PUBLIC.ORDERS_EX_PROFITABLE_FLAG (
