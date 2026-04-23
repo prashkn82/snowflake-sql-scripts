@@ -411,7 +411,7 @@ How many rows have been loaded?
              LIST @EXERCISE_DB.EXTERNAL_STAGES.JSONSTAGE;
 
              CREATE OR REPLACE STAGE EXERCISE_DB.EXTERNAL_STAGES.JSONSTAGE
-                 url='s3://bucketsnowflake-jsondemo';
+                 url='s3://snowflake-assignments-mc/unstructureddata/';
 
           -- CREATE SCHMEMA IF EXISTS
           CREATE SCHEMA IF NOT EXISTS EXERCISE_DB.FILE_FORMATS;
@@ -435,16 +435,20 @@ How many rows have been loaded?
         COPY INTO EXERCISE_DB.PUBLIC.JSON_RAW 
         FROM @EXERCISE_DB.EXTERNAL_STAGES.JSONSTAGE
         file_format= EXERCISE_DB.FILE_FORMATS.JSONFORMAT
-        files = ('HR_data.json');
+        files = ('Jobskills.json');
 
         -- View the records After loading JSON DATA
             SELECT COUNT(*) FROM EXERCISE_DB.PUBLIC.JSON_RAW 
-            -- Rows : 200 rows loaded.
+            -- Rows : 112
         
 
         -- Questions for this assignment
         -- What is the last name of the person in the first row (id=1)?
         SELECT raw_file FROM EXERCISE_DB.PUBLIC.JSON_RAW 
-         -- For id=1, last name - Gioani
+
+        SELECT raw_file
+        FROM EXERCISE_DB.PUBLIC.JSON_RAW
+        WHERE raw_file:id = 1;
+         -- For id=1, "first_name": "Flossy", "last_name": "Fasson"
         
        
