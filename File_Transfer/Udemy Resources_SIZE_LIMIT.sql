@@ -1,6 +1,4 @@
-
-
----- SIZE_LIMIT ----
+-- Setting up the SIZE_LIMIT 
 
 // Prepare database & table
 CREATE OR REPLACE DATABASE COPY_DB;
