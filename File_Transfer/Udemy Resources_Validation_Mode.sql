@@ -1,4 +1,5 @@
--- Using  VALIDATION_MODE, which will determine whether any ERRORS Occured before Loading into the Table.
+-- Using VALIDATION_MODE= RETURN_ERROR
+-- This will determine whether any ERRORS Occured before Loading into the Table.
 // Prepare database & table
 CREATE OR REPLACE DATABASE COPY_DB;
 
