@@ -450,5 +450,90 @@ How many rows have been loaded?
         FROM EXERCISE_DB.PUBLIC.JSON_RAW
         WHERE raw_file:id = 1;
          -- For id=1, "first_name": "Flossy", "last_name": "Fasson"
-        
-       
+
+         /*
+Assignment 8:
+    
+1. Query from the previously created JSON_RAW  table.
+
+Note: This table was created in the previous assignment (assignment 7), where you had to create a stage object that is pointing to 's3://snowflake-assignments-mc/unstructureddata/'. We have called the table JSON_RAW.
+
+2. Select the attributes
+
+first_name, last_name, skills and query these columns.
+
+
+
+3. The skills column contains an array. Query the first two values in the skills attribute for every record in a separate column:
+
+first_name
+
+last_name
+
+skills_1
+
+skills_2
+
+
+4. Create a table and insert the data for these 4 columns in that table.
+
+Questions for this assignment What is the first skill of the person with first_name 'Florina'?
+
+ */
+
+-- Assignment 8: Solution.
+-- Let's review the Table rows and the stage.
+
+USE Exercise_DB;
+
+LIST @EXERCISE_DB.EXTERNAL_STAGES.JSONSTAGE;
+
+ -- View the records - JSON DATA
+  SELECT COUNT(*) FROM EXERCISE_DB.PUBLIC.JSON_RAW 
+  SELECT * FROM EXERCISE_DB.PUBLIC.JSON_RAW 
+
+  -- 2. Select the attributes
+
+SELECT $1:first_name FROM EXERCISE_DB.PUBLIC.JSON_RAW;
+
+SELECT 
+    RAW_FILE:first_name::STRING as first_name,
+    RAW_FILE:last_name::STRING as last_name,
+    RAW_FILE:Skills::STRING as skills
+FROM EXERCISE_DB.PUBLIC.JSON_RAW
+
+
+-- 3. The skills column contains an array. Query the first two values in the skills attribute for every record in a separate column:
+
+first_name
+
+last_name
+
+skills_1
+
+skills_2
+
+SELECT 
+    RAW_FILE:first_name::STRING AS first_name,   -- top-level field
+    RAW_FILE:last_name::STRING AS last_name,     -- top-level field
+    RAW_FILE:Skills[0]::STRING AS skill_1,       -- first element of Skills array
+    RAW_FILE:Skills[1]::STRING AS skill_2        -- second element of Skills array
+
+FROM EXERCISE_DB.PUBLIC.JSON_RAW;
+
+-- 4. Create a table and insert the data for these 4 columns in that table.
+
+CREATE TABLE EXERCISE_DB.PUBLIC.SKILLS 
+AS
+SELECT 
+    RAW_FILE:first_name::STRING AS first_name,   -- top-level field
+    RAW_FILE:last_name::STRING AS last_name,     -- top-level field
+    RAW_FILE:Skills[0]::STRING AS skill_1,       -- first element of Skills array
+    RAW_FILE:Skills[1]::STRING AS skill_2        -- second element of Skills array
+FROM EXERCISE_DB.PUBLIC.JSON_RAW;
+
+SELECT * FROM EXERCISE_DB.PUBLIC.SKILLS 
+WHERE FIRST_NAME='Florina'
+
+
+    Questions for this assignment What is the first skill of the person with first_name 'Florina'?
