@@ -15,22 +15,32 @@ SHOW STAGES;
 LIST @AWS_STAGE;
 SELECT $1 FROM @AWS_STAGE;
 
--- =========================================================
--- STEP 3: CREATE STORAGE INTEGRATION (AWS IAM CONNECTION)
--- =========================================================
+-- =================== Execute these commands in AWS CLI ========================================
+-- STEP 3 A: CREATE STAGE (initial placeholder version)
+-- NOTE: This version does NOT yet use storage integration
+-- =============================================================
+-- (a) Creates S3 bucket → storage layer for data lake. 
+-- Creates a new S3 bucket to store Parquet files for Snowflake ingestion
+aws s3 mb s3://parquet-snowflake-demo-bucket 
+-- Output:make_bucket: parquet-snowflake-demo-bucket
 
-CREATE OR REPLACE STORAGE INTEGRATION S3_INT
-TYPE = EXTERNAL_STAGE
-STORAGE_PROVIDER = S3
-STORAGE_AWS_ROLE_ARN = 'arn:aws:iam::054330749015:role/snowflake-s3-role'
-ENABLED = TRUE
-STORAGE_ALLOWED_LOCATIONS = ('s3://parquet-snowflake-demo-bucket');
+-- (b) Uploads Parquet file → raw dataset ingestion
+-- This file will later be accessed via Snowflake External Stage
+aws s3 cp "C:\Users\PRASHANTH K\Downloads\daily_sales_items_top105.parquet" \
+s3://parquet-snowflake-demo-bucket/
+/*
+output: upload: .\daily_sales_items_top105.parquet 
+to s3://parquet-snowflake-demo-bucket/daily_sales_items_top105.parquet
+*/
 
--- Verify integration details (VERY IMPORTANT for IAM setup)
-DESC INTEGRATION S3_INT;
+
+-- (c) Validates upload → ensures Snowflake can access file later
+-- # Lists all objects in the bucket to confirm successful upload
+aws s3 ls s3://parquet-snowflake-demo-bucket/
+-- Output: 2026-04-29 16:25:30    4413445 daily_sales_items_top105.parquet
 
 -- ============================================================
--- STEP 4: CREATE STAGE (initial placeholder version)
+-- STEP 3 B: CREATE STAGE (initial placeholder version)
 -- NOTE: This version does NOT yet use storage integration
 -- =============================================================
 
@@ -44,6 +54,19 @@ DESC STAGE MANAGE_DB.EXTERNAL_STAGES.PARQUETSTAGE;
 LIST @MANAGE_DB.EXTERNAL_STAGES.PARQUETSTAGE;
 LIST @PARQUETSTAGE;
 
+-- =========================================================
+-- STEP 4: CREATE STORAGE INTEGRATION (AWS IAM CONNECTION)
+-- =========================================================
+
+CREATE OR REPLACE STORAGE INTEGRATION S3_INT
+TYPE = EXTERNAL_STAGE
+STORAGE_PROVIDER = S3
+STORAGE_AWS_ROLE_ARN = 'arn:aws:iam::054330749015:role/snowflake-s3-role'
+ENABLED = TRUE
+STORAGE_ALLOWED_LOCATIONS = ('s3://parquet-snowflake-demo-bucket');
+
+-- Verify integration details (VERY IMPORTANT for IAM setup)
+DESC INTEGRATION S3_INT;
 
 -- =====================================================
 -- STEP 5: ATTACH STORAGE INTEGRATION + PARQUET FORMAT
